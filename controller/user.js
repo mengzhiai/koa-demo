@@ -2,7 +2,7 @@
  * @Date: 2021-02-07 14:31:19
  * @Description: 
  * @LastEditors: jun
- * @LastEditTime: 2021-02-07 17:30:52
+ * @LastEditTime: 2021-02-07 17:40:47
  * @FilePath: \koa-demo\controller\user.js
  */
 const User = require('../models/User')
@@ -16,13 +16,16 @@ module.exports = {
     }) */
 
     // 新建
-    console.log();
+    /* let params = ctx.query;
+    const result = await User.create(params)
+    ctx.body = result; */
+
     let params = ctx.query;
-    const result = await User.create({
-      name: params.name,
-      nameMaster: params.nameMaster
-    })
-    ctx.body = result;
+    try {
+      return await User.create(params)
+    } catch(err) {
+      ctx.body = err;
+    }
 
     // 删除
     /* let result = await User.destroy({
@@ -33,7 +36,7 @@ module.exports = {
     
 
 
-    ctx.body = result;
+    // ctx.body = result;
 
 
 
