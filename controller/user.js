@@ -2,7 +2,7 @@
  * @Date: 2021-02-07 14:31:19
  * @Description: 
  * @LastEditors: jun
- * @LastEditTime: 2021-02-07 17:13:13
+ * @LastEditTime: 2021-02-07 17:30:52
  * @FilePath: \koa-demo\controller\user.js
  */
 const User = require('../models/User')
@@ -11,16 +11,18 @@ module.exports = {
   list: async (ctx, next) => {
 
     // 查询
-    let result = await User.findAll({
+    /* let result = await User.findAll({
       limit: 5
-    })
+    }) */
 
     // 新建
-    /* const result = await User.create({
-      name: 'test1',
-      nameMaster: '3423423'
+    console.log();
+    let params = ctx.query;
+    const result = await User.create({
+      name: params.name,
+      nameMaster: params.nameMaster
     })
-    ctx.body = result; */
+    ctx.body = result;
 
     // 删除
     /* let result = await User.destroy({

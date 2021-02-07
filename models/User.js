@@ -2,7 +2,7 @@
  * @Date: 2021-02-07 14:46:39
  * @Description: 
  * @LastEditors: jun
- * @LastEditTime: 2021-02-07 16:38:49
+ * @LastEditTime: 2021-02-07 17:31:38
  * @FilePath: \koa-demo\models\user.js
  */
 
@@ -18,7 +18,9 @@ const User = sequelize.define( "user",
       primaryKey: true
     },
     name: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true
     },
     nameMaster: {
       type: Sequelize.STRING
