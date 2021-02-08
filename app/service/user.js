@@ -8,7 +8,7 @@ module.exports = {
     return await User.findAndCountAll({
       where: {
         name: {
-          [Op.like]: `${keyword}%`
+          [Op.like]: `${keyword}%` || ''
         }
       },
       offset: page,

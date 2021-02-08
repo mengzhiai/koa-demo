@@ -20,6 +20,15 @@ const User = sequelize.define( "user",
     name: {
       type: Sequelize.STRING,
       allowNull: false, // 是否为空
+      validate: {
+        len: {
+          args: [3, 10],
+          msg: 'name长度为3-10位'
+        },
+        isInt: {
+          msg: '必须为数字'
+        }
+      }
     },
     nameMaster: {
       type: Sequelize.STRING,

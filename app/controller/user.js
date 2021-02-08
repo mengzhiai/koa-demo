@@ -15,6 +15,10 @@ module.exports = {
   // 添加
   async add(ctx) {
     let params = ctx.request.body;
+    if(!params.name) {
+      ctx.body = errorMsg('', 'name不能为空');
+      return
+    }
     try {
       const result = await User.add(params);
       if (!result) {
@@ -23,7 +27,12 @@ module.exports = {
       }
       ctx.body = successMsg('', '添加成功');
     } catch (err) {
-      ctx.body = errorMsg(err.errors, '添加失败')
+      // ctx.body = errorMsg(err.errors, '添加失败1')
+      ctx.body = {
+        code: 422,
+        data: err.errors[0].message,
+        msg: '添加失败11'
+      }
     }
 
 
