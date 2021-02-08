@@ -21,12 +21,8 @@ const User = sequelize.define( "user",
       type: Sequelize.STRING,
       allowNull: false, // 是否为空
       validate: {
-        len: {
-          args: [3, 10],
-          msg: 'name长度为3-10位'
-        },
-        isInt: {
-          msg: '必须为数字'
+        notEmpty: {
+          msg: '不允许为空字符串'
         }
       }
     },
@@ -36,7 +32,6 @@ const User = sequelize.define( "user",
     }
   },
   {
-    // sequelize:db,
     sequelize,
     timestamps: true,//禁用时间戳
     tableName: "user",//明确定义表名

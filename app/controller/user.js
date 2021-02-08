@@ -27,11 +27,9 @@ module.exports = {
       }
       ctx.body = successMsg('', '添加成功');
     } catch (err) {
-      // ctx.body = errorMsg(err.errors, '添加失败1')
       ctx.body = {
         code: 422,
-        data: err.errors[0].message,
-        msg: '添加失败11'
+        msg: err.errors[0].message
       }
     }
 
