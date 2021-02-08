@@ -11,6 +11,17 @@ router.prefix('/user');
 
 const userController = require('../controller/user');
 
+// 获取列表
 router.get('/list', userController.list);
+
+// 添加
+router.post('/add', userController.add);
+
+// 删除
+router.post('/delete', userController.delete);
+
+// 更新
+router.post('/update', userController.update);
+
 
 module.exports = router;

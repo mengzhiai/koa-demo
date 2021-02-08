@@ -8,7 +8,10 @@
 const Koa = require("koa2");                              
 const app = new Koa();
 
-const routers = require('./router/index');
+const koaBody = require('koa-body');
+app.use(koaBody())
+
+const routers = require('./app/router/index');
 app.use(routers.routes()).use(routers.allowedMethods());
 
 app.listen(4000, () => {
