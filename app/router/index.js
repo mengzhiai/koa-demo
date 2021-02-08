@@ -20,6 +20,9 @@ router.post('/add', userController.add);
 // 删除
 router.post('/delete', userController.delete);
 
+// 详情
+router.get('/detail', userController.detail)
+
 // 更新
 router.post('/update', userController.update);
 

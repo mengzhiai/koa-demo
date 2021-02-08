@@ -41,10 +41,11 @@ module.exports = {
     }
 
     try {
+      console.log('aaaaaaaaaaaaa', params);
       const result = await User.delete(params.id)
       if (!result) {
         ctx.body = errorMsg('', '刪除失败')
-        
+        return
       }
       ctx.body = successMsg('', '删除成功');
     } catch (err) {
@@ -66,14 +67,35 @@ module.exports = {
     }
   },
 
+  // 详情
+  async detail(ctx) {
+    let { id } = ctx.query;
+    if(!id) {
+      ctx.body = errorMsg('', 'id不能为空');
+      return
+    }
+    let result = await User.detail(id);
+    
+    if(!result.length) {
+      ctx.body = errorMsg('', 'id有误');
+      return
+    }
+    ctx.body = successMsg(result[0])
+  },
+
   
   // 更新
   async update(ctx) {
     let params = ctx.request.body;
     try {
-      let result = await User.edit(params);
+      let result = await User.edit({name: params.name, nameMaster: params.nameMaster}, params.id);
+      if(!result) {
+        ctx.body = errorMsg(err, '更新失败');
+        return
+      }
+      ctx.body = successMsg('', '更新成功');
     } catch (err) {
-      ctx.body = errorMsg(err.errors, '更新失败');
+      ctx.body = errorMsg(err, '更新失败');
     }
   }
 }

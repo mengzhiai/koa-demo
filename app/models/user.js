@@ -14,15 +14,16 @@ const User = sequelize.define( "user",
   {
     id: {
       type: Sequelize.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
+      autoIncrement: true, // 自动增长  
+      primaryKey: true, // 主键
     },
     name: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false, // 是否为空
     },
     nameMaster: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      defaultValue: '' // 默认值
     }
   },
   {

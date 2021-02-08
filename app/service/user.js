@@ -1,11 +1,16 @@
-const User = require("../models/User")
+const User = require("../models/User");
+
+const { Op } = require("sequelize");
 
 module.exports = {
   // 获取列表
   async list(page, limit) {
     return await User.findAndCountAll({
       offset: page,
-      limit: limit
+      limit: limit,
+      attributes: {
+        exclude: ['create_time', 'update_time', 'delete_time']
+      }
     })
   },
 
@@ -24,9 +29,21 @@ module.exports = {
     })
   },
 
+  // 查询
+  async detail(id) {
+    return await User.findAll({
+      where: { id: id }
+    })
+  },
+
 
   // 编辑
-  async edit(params) {
-    return await User.update()
+  async edit(params, id) {
+    return await User.update(params, {
+      where: {
+        id: id
+      }
+    }
+    )
   }
 }
