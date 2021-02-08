@@ -4,8 +4,13 @@ const { Op } = require("sequelize");
 
 module.exports = {
   // 获取列表
-  async list(page, limit) {
+  async list(keyword, page, limit) {
     return await User.findAndCountAll({
+      where: {
+        name: {
+          [Op.like]: `${keyword}%`
+        }
+      },
       offset: page,
       limit: limit,
       attributes: {
@@ -43,7 +48,6 @@ module.exports = {
       where: {
         id: id
       }
-    }
-    )
+    })
   }
 }

@@ -17,7 +17,7 @@ module.exports = {
     let params = ctx.request.body;
     try {
       const result = await User.add(params);
-      if(!result) {
+      if (!result) {
         ctx.body = errorMsg('', '添加失败')
         return ctx;
       }
@@ -31,8 +31,8 @@ module.exports = {
 
   // 删除
   async delete(ctx) {
-    let params = ctx.request.body;
-    if (!params.id) {
+    let { id } = ctx.request.body;
+    if (!id) {
       ctx.body = {
         code: 422,
         msg: 'id不存在'
@@ -41,8 +41,14 @@ module.exports = {
     }
 
     try {
-      console.log('aaaaaaaaaaaaa', params);
-      const result = await User.delete(params.id)
+      let resultId = await User.detail(id);
+      if (!resultId.length) {
+        ctx.body = errorMsg('', '当前id有误,删除失败');
+        return
+      }
+
+
+      const result = await User.delete(id)
       if (!result) {
         ctx.body = errorMsg('', '刪除失败')
         return
@@ -57,40 +63,45 @@ module.exports = {
 
   // 获取列表
   async list(ctx) {
+    ctx.body = {
+      data: ctx,
+      params: ctx.query
+    }
+    // return
     let params = ctx.query;
     // 查询
     try {
-      let result = await User.list((parseInt(params.page) - 1) * parseInt(params.limit), parseInt(params.limit));
+      let result = await User.list(params.keywords,(parseInt(params.page) - 1) * parseInt(params.limit), parseInt(params.limit));
       ctx.body = successMsg(result);
-    } catch(err) {
-      ctx.body = errorMsg(err.errorMsg, '获取失败');
+    } catch (err) {
+      ctx.body = errorMsg(err, '获取失败');
     }
   },
 
   // 详情
   async detail(ctx) {
     let { id } = ctx.query;
-    if(!id) {
+    if (!id) {
       ctx.body = errorMsg('', 'id不能为空');
       return
     }
     let result = await User.detail(id);
-    
-    if(!result.length) {
+
+    if (!result.length) {
       ctx.body = errorMsg('', 'id有误');
       return
     }
     ctx.body = successMsg(result[0])
   },
 
-  
+
   // 更新
   async update(ctx) {
     let params = ctx.request.body;
     try {
-      let result = await User.edit({name: params.name, nameMaster: params.nameMaster}, params.id);
-      if(!result) {
-        ctx.body = errorMsg(err, '更新失败');
+      let result = await User.edit({ name: params.name, nameMaster: params.nameMaster }, params.id);
+      if (!result) {
+        ctx.body = errorMsg('', '更新失败');
         return
       }
       ctx.body = successMsg('', '更新成功');
