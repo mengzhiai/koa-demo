@@ -11,6 +11,7 @@ module.exports = {
           [Op.like]: `${keyword}%` || ''
         }
       },
+      order: [['create_time', 'DESC']],
       offset: page,
       limit: limit,
       attributes: {
