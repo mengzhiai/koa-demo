@@ -22,7 +22,7 @@ module.exports = {
 
   // 添加
   async add(params) {
-    return await User.create({
+      return await User.create({
       name: params.name,
       nameMaster: params.nameMaster
     })

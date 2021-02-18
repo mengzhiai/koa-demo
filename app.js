@@ -9,7 +9,12 @@ const Koa = require("koa2");
 const app = new Koa();
 
 const koaBody = require('koa-body');
-app.use(koaBody())
+app.use(koaBody());
+
+
+const httpError = require('./app/middleware/httpException');
+
+app.use(httpError);
 
 const routers = require('./app/router/index');
 app.use(routers.routes()).use(routers.allowedMethods());

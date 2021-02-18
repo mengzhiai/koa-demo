@@ -15,7 +15,7 @@ module.exports = {
   // 添加
   async add(ctx) {
     let params = ctx.request.body;
-    if(!params.name) {
+    if (!params.name) {
       ctx.body = errorMsg('', 'name不能为空');
       return
     }
@@ -70,19 +70,15 @@ module.exports = {
 
   // 获取列表
   async list(ctx) {
-    ctx.body = {
-      data: ctx,
-      params: ctx.query
-    }
-    // return
     let params = ctx.query;
-    // 查询
-    try {
-      let result = await User.list(params.keywords,(parseInt(params.page) - 1) * parseInt(params.limit), parseInt(params.limit));
-      ctx.body = successMsg(result);
-    } catch (err) {
-      ctx.body = errorMsg(err, '获取失败');
+
+    if(!params.page) {
+      let val = new CatchException('分页page', 400);
+      throw error;
     }
+    // 查询
+    let result = await User.list(params.keywords, (parseInt(params.page) - 1) * parseInt(params.limit), parseInt(params.limit));
+    ctx.body = successMsg(result);
   },
 
   // 详情

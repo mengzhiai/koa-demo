@@ -23,6 +23,14 @@ const User = sequelize.define( "user",
       validate: {
         notEmpty: {
           msg: '不允许为空字符串'
+        },
+        /* isIn: {
+          args: [['test1','test2']],
+          msg: '仅允许123'
+        }, */
+        len: {
+          args: [3,6],
+          msg: '长度为3-6'
         }
       }
     },
