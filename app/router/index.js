@@ -11,6 +11,9 @@ router.prefix('/user');
 
 const userController = require('../controller/user');
 
+
+const studentController = require('../controller/student');
+
 // 获取列表
 router.get('/list', userController.list);
 
@@ -26,5 +29,15 @@ router.get('/detail', userController.detail)
 // 更新
 router.post('/update', userController.update);
 
+
+// 获取关联信息
+router.get('/userStu', userController.useStu)
+
+router.get('/student', studentController.stuList)
+
+
+router.post('/stuAdd', studentController.stuAdd);
+
+router.get('/message', studentController.messageList)
 
 module.exports = router;

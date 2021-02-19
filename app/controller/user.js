@@ -111,6 +111,19 @@ module.exports = {
     } catch (err) {
       ctx.body = errorMsg(err, '更新失败');
     }
+  },
+
+
+  async useStu(ctx) {
+    let params = ctx.query;
+    try {
+      let result = await User.useStu(params.typeId);
+      ctx.body = successMsg(result);
+    } catch(err) {
+      ctx.body = {
+        data: err
+      }
+    }
   }
 }
 

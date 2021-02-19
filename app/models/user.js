@@ -17,6 +17,11 @@ const User = sequelize.define( "user",
       autoIncrement: true, // 自动增长  
       primaryKey: true, // 主键
     },
+    typeId: {
+      type: Sequelize.INTEGER,
+      autoIncrement: false,
+      allowNull: false,
+    },
     name: {
       type: Sequelize.STRING,
       allowNull: false, // 是否为空

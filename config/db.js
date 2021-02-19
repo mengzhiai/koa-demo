@@ -66,8 +66,8 @@ const sequelize = new Sequelize('demo_db','root','123456',{
         bigNumberStrings: true
     },
     define: {
-      timestamps: false, // 是否自动创建时间字段， 默认会自动创建createdAt、updatedAt
-      paranoid: true, // 是否自动创建deletedAt字段
+      timestamps: true, // 是否自动创建时间字段， 默认会自动创建createdAt、updatedAt
+      paranoid: false, // 是否自动创建deletedAt字段
       createdAt: "create_time", // 重命名字段
       updatedAt: "update_time",
       deletedAt: "delete_time",

@@ -1,5 +1,24 @@
 const User = require("../models/User");
 
+const Student = require('../models/student');
+
+// Student.hasOne(User);
+
+// User.belongsTo(Student);
+
+// Student.hasMany(User);
+
+
+// User.hasMany(Student, {foreignKey: 'typeId', through: null });
+
+// User.belongsTo(Student, {foreignKey: 'typeId', as: 'info' });
+
+// User.hasOne(Student, { foreignKey: 'studentId', as: 'info' })
+
+Student.hasOne(User);
+
+User.belongsTo(Student);
+
 const { Op } = require("sequelize");
 
 module.exports = {
@@ -42,13 +61,20 @@ module.exports = {
     })
   },
 
-
   // 编辑
   async edit(params, id) {
     return await User.update(params, {
       where: {
         id: id
       }
+    })
+  },
+
+
+  async useStu(typeId) {
+    // Student
+    return await Student.findAll({
+      where: { studentId: typeId }
     })
   }
 }
