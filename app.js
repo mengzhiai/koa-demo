@@ -5,11 +5,25 @@
  * @LastEditTime: 2021-02-07 15:22:40
  * @FilePath: \koa-demo\app.js
  */
-const Koa = require("koa2");                              
+const Koa = require("koa2");
 const app = new Koa();
 
 const koaBody = require('koa-body');
-app.use(koaBody());
+
+const path = require('path')
+
+
+app.use(koaBody({
+  multipart: true,
+  formidable: {
+    // 上传目录
+    uploadDir: path.join(__dirname, './static'),
+    // 保留文件扩展名
+    keepExtensions: true,
+    maxFileSize: 200 * 1024 * 1024    // 设置上传文件大小最大限制，默认2M
+  }
+}));
+// app.use(koaBody());
 
 
 const httpError = require('./app/middleware/httpException');
