@@ -9,6 +9,10 @@
 
 const User = require('../service/user');
 
+const path = require('path')
+
+let fs = require("fs");
+
 const { errorMsg, successMsg } = require('../middleware/message')
 
 module.exports = {
@@ -72,7 +76,7 @@ module.exports = {
   async list(ctx) {
     let params = ctx.query;
 
-    if(!params.page) {
+    if (!params.page) {
       let val = new CatchException('分页page', 400);
       throw error;
     }
@@ -114,12 +118,30 @@ module.exports = {
   },
 
 
+  async upload(ctx) {
+    // 上传单个文件
+    const file = ctx.request.files.file // 获取上传文件
+    // 创建可读流
+    const reader = fs.createReadStream(file.path);
+    let filePath = path.join(__dirname, '/public/upload/') + `/${file.name}`;
+    // 创建可写流
+    const upStream = fs.createWriteStream(filePath);
+    // 可读流通过管道写入可写流
+    reader.pipe(upStream);
+    return ctx.body = {
+      msg: '上传成功',
+      code: 200,
+      url: file.path
+    };
+  },
+
+
   async useStu(ctx) {
     let params = ctx.query;
     try {
       let result = await User.useStu(params.typeId);
       ctx.body = successMsg(result);
-    } catch(err) {
+    } catch (err) {
       ctx.body = {
         data: err
       }

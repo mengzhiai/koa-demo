@@ -2,18 +2,6 @@ const User = require("../models/User");
 
 const Student = require('../models/student');
 
-// Student.hasOne(User);
-
-// User.belongsTo(Student);
-
-// Student.hasMany(User);
-
-
-// User.hasMany(Student, {foreignKey: 'typeId', through: null });
-
-// User.belongsTo(Student, {foreignKey: 'typeId', as: 'info' });
-
-// User.hasOne(Student, { foreignKey: 'studentId', as: 'info' })
 
 Student.hasOne(User);
 
@@ -24,7 +12,7 @@ const { Op } = require("sequelize");
 module.exports = {
   // 获取列表
   async list(keyword, page, limit) {
-    return await User.findAndCountAll({
+    /* return await User.findAndCountAll({
       where: {
         name: {
           [Op.like]: `${keyword}%` || ''
@@ -36,7 +24,9 @@ module.exports = {
       attributes: {
         exclude: ['create_time', 'update_time', 'delete_time']
       }
-    })
+    }) */
+
+    return await User.findAndCountAll()
   },
 
   // 添加
@@ -50,7 +40,9 @@ module.exports = {
   // 删除
   async delete(id) {
     return await User.destroy({
-      where: { id: id }
+      where: { id: id },
+      // force: true, // 硬删除
+      paranoid: false // 查询已删除的记录
     })
   },
 

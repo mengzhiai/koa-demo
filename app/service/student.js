@@ -76,15 +76,24 @@ module.exports = {
     }) */
 
     // 一对多
+    /* return await Users.findAndCountAll({
+      include: 'phoneList'
+    }) */
+    
     return await Users.findAndCountAll({
       // where: {
       //   name: '张三'
       // },
-      include: [{
+      include: 'phoneList',
+      distinct: true,
+
+      
+      /* include: [{
         model: Phone,
         as: 'phoneList'
       }],
-      distinct: true, // 去重,返回数据的count不会把include中的值算进去
+      distinct: true, */ // 去重,返回数据的count不会把include中的值算进去
+
 
 
       // include: [

@@ -30,6 +30,9 @@ router.get('/detail', userController.detail)
 router.post('/update', userController.update);
 
 
+router.post('/upload', userController.upload);
+
+
 // 获取关联信息
 router.get('/userStu', userController.useStu)
 

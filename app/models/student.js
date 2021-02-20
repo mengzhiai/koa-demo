@@ -8,10 +8,10 @@ const Student = sequelize.define( "student",
       autoIncrement: true, // 自动增长  
       primaryKey: true, // 主键
     },
-    studentId: {
+    /* studentId: {
       type: Sequelize.INTEGER,
       allowNull: false,
-    },
+    }, */
     name: {
       type: Sequelize.STRING,
       allowNull: false, // 是否为空
