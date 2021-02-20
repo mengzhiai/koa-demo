@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 const sequelize = require('../../config/db');
 
 
-
 const Users = sequelize.define("users", {
   id: {
     type: Sequelize.INTEGER,
@@ -10,11 +9,15 @@ const Users = sequelize.define("users", {
     primaryKey: true,
     autoIncrement: true
   },
-  username: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  status: {
+  gender: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  age: {
     type: Sequelize.INTEGER,
     allowNull: false
   },
@@ -22,15 +25,9 @@ const Users = sequelize.define("users", {
     type: Sequelize.INTEGER,
     allowNull: false
   },
-  createdAt: {
-    type: Sequelize.DATE,
-    allowNull: true
-  },
-  updatedAt: {
-    type: Sequelize.DATE,
-    allowNull: true
-  }
 }, {
+  sequelize,
+  timestamps: false,//禁用时间戳
   tableName: 'users'
 })
 

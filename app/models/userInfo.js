@@ -8,27 +8,18 @@ const UserInfo = sequelize.define("user_info", {
     primaryKey: true,
     autoIncrement: true
   },
-  user_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
+
   birthday: {
     type: Sequelize.STRING,
     allowNull: true
   },
-  nickname: {
+  address: {
     type: Sequelize.STRING,
     allowNull: true
   },
-  createdAt: {
-    type: Sequelize.DATE,
-    allowNull: true
-  },
-  updatedAt: {
-    type: Sequelize.DATE,
-    allowNull: true
-  }
 },{
+  sequelize,
+  timestamps: false,//禁用时间戳
   tableName: 'user_info'
 })
 
